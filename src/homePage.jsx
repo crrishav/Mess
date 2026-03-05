@@ -1,9 +1,13 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import NavBar from "./Components/navBar";
 import ShopNowButton from "./Components/ShopNowButton";
+import AddToCartButton from "./Components/AddToCartButton";
 import { slideUp, slideDown, revealOnScroll } from "./Components/animations";
+import TrustedInfluencersSection from "./Components/TrustedInfluencersSection";
+import Footer from "./Components/Footer";
+import CartOverlay from "./Components/CartOverlay";
 
 // Product Images
 import img1 from "./assets/products/1.PNG";
@@ -25,6 +29,7 @@ if (typeof window !== "undefined") {
  * Showcase of the MESS brand with the new robust NavBar.
  */
 const HomePage = () => {
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const mainRef = useRef(null);
   const section2Ref = useRef(null);
   const section2TitleRef = useRef(null);
@@ -165,6 +170,24 @@ const HomePage = () => {
     return () => ctx.revert(); // Cleanup GSAP context
   }, []);
 
+  useEffect(() => {
+    const lenis = typeof window !== "undefined" ? window.__lenis__ : null;
+    const prevOverflow = document.body.style.overflow;
+
+    if (isCartOpen) {
+      lenis?.stop?.();
+      document.body.style.overflow = "hidden";
+    } else {
+      lenis?.start?.();
+      document.body.style.overflow = prevOverflow || "";
+    }
+
+    return () => {
+      lenis?.start?.();
+      document.body.style.overflow = prevOverflow || "";
+    };
+  }, [isCartOpen]);
+
   const products = [
     { id: 1, img: img1 },
     { id: 2, img: img2 },
@@ -175,10 +198,11 @@ const HomePage = () => {
   return (
     <div ref={mainRef} className="bg-[#000000] min-h-screen text-white font-sans selection:bg-white selection:text-black">
       {/* Scroll-Aware Navbar */}
-      <NavBar />
+      <NavBar onCartClick={() => setIsCartOpen(true)} />
+      <CartOverlay isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
       {/* Hero Section - Completely Black and Empty */}
-      <section className="h-screen w-full bg-[#000000] relative overflow-hidden flex items-center justify-center">
+      <section id="hero" className="h-screen w-full bg-[#000000] relative overflow-hidden flex items-center justify-center">
         {/* Intentionally left blank as per requirements */}
       </section>
 
@@ -323,17 +347,18 @@ const HomePage = () => {
                 <p className="text-sm md:text-base text-white/60 font-inter max-w-sm leading-relaxed">
                   {product.desc}
                 </p>
-                <ShopNowButton className="mt-4 scale-75" />
+                <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+                  <ShopNowButton className="scale-75" />
+                  <AddToCartButton />
+                </div>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Footer Placeholder */}
-      <footer className="py-20 text-center border-t border-white/5 opacity-40 uppercase tracking-[0.4em] text-xs">
-        © 2026 MESS / All Rights Reserved
-      </footer>
+      <TrustedInfluencersSection />
+      <Footer />
     </div>
   );
 };

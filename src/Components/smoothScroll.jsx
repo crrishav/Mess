@@ -33,6 +33,9 @@ const SmoothScroll = ({ children }) => {
     });
 
     lenisRef.current = lenis;
+    if (typeof window !== "undefined") {
+      window.__lenis__ = lenis;
+    }
 
     // Connect Lenis to ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
@@ -80,6 +83,9 @@ const SmoothScroll = ({ children }) => {
       document.removeEventListener("click", handleAnchorClick);
       clearTimeout(refreshTrigger);
       window.removeEventListener("load", () => ScrollTrigger.refresh());
+      if (typeof window !== "undefined" && window.__lenis__ === lenis) {
+        delete window.__lenis__;
+      }
     };
   }, []);
 

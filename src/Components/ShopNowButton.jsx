@@ -30,7 +30,7 @@ const ShopNowButton = ({ onClick, className = "" }) => {
         -z-10
       "></span>
       
-      <span className="relative z-10">Shop Now</span>
+      <span className="relative z-10">Buy Now</span>
     </button>
   );
 };
