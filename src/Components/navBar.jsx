@@ -1,8 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import logo from "../assets/logo.svg";
 
 /**

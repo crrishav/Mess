@@ -10,10 +10,10 @@ import Footer from "./Components/footer";
 import CartOverlay from "./Components/CartOverlay";
 
 // Product Images
-import img1 from "./assets/products/1.PNG";
-import img2 from "./assets/products/2.PNG";
-import img3 from "./assets/products/3.PNG";
-import img4 from "./assets/products/4.PNG";
+import img1 from "./assets/Products/1.PNG";
+import img2 from "./assets/Products/2.PNG";
+import img3 from "./assets/Products/3.PNG";
+import img4 from "./assets/Products/4.PNG";
 import NepalMap from "./Components/NepalMap";
 
 import gsap from "gsap";
@@ -168,7 +168,7 @@ const HomePage = () => {
     }, mainRef); // Scope to the main container
 
     return () => ctx.revert(); // Cleanup GSAP context
-  }, []);
+  }, [showcaseProducts.length]);
 
   useEffect(() => {
     const lenis = typeof window !== "undefined" ? window.__lenis__ : null;
