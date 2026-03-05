@@ -6,7 +6,7 @@ import ShopNowButton from "./Components/ShopNowButton";
 import AddToCartButton from "./Components/AddToCartButton";
 import { slideUp, slideDown, revealOnScroll } from "./Components/animations";
 import TrustedInfluencersSection from "./Components/TrustedInfluencersSection";
-import Footer from "./Components/Footer";
+import Footer from "./Components/footer";
 import CartOverlay from "./Components/CartOverlay";
 
 // Product Images
